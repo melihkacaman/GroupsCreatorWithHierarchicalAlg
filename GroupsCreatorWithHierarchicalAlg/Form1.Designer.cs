@@ -39,10 +39,13 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.btn_importFile = new System.Windows.Forms.Button();
             this.panel_left = new System.Windows.Forms.Panel();
             this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nmr_grp2 = new System.Windows.Forms.NumericUpDown();
             this.panel_right.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel_left.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_right
@@ -60,6 +63,8 @@ namespace GroupsCreatorWithHierarchicalAlg
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.Controls.Add(this.nmr_grp2);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btn_grp2_apply);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cmb_grp2_Y);
@@ -69,7 +74,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.groupBox1.Location = new System.Drawing.Point(10, 66);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 188);
+            this.groupBox1.Size = new System.Drawing.Size(189, 242);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grouping Two Objects";
@@ -77,7 +82,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             // btn_grp2_apply
             // 
             this.btn_grp2_apply.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_grp2_apply.Location = new System.Drawing.Point(19, 127);
+            this.btn_grp2_apply.Location = new System.Drawing.Point(19, 169);
             this.btn_grp2_apply.Name = "btn_grp2_apply";
             this.btn_grp2_apply.Size = new System.Drawing.Size(152, 39);
             this.btn_grp2_apply.TabIndex = 4;
@@ -153,6 +158,22 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.dataGrid.Size = new System.Drawing.Size(924, 722);
             this.dataGrid.TabIndex = 0;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 128);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(117, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Nr. of Groups :";
+            // 
+            // nmr_grp2
+            // 
+            this.nmr_grp2.Location = new System.Drawing.Point(139, 128);
+            this.nmr_grp2.Name = "nmr_grp2";
+            this.nmr_grp2.Size = new System.Drawing.Size(43, 22);
+            this.nmr_grp2.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -168,6 +189,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.groupBox1.PerformLayout();
             this.panel_left.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -184,6 +206,8 @@ namespace GroupsCreatorWithHierarchicalAlg
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmb_grp2_Y;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nmr_grp2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
