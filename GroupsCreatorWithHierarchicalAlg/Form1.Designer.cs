@@ -74,7 +74,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.groupBox1.Location = new System.Drawing.Point(10, 66);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 242);
+            this.groupBox1.Size = new System.Drawing.Size(189, 231);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grouping Two Objects";

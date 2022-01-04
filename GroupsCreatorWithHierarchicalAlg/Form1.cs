@@ -56,7 +56,32 @@ namespace GroupsCreatorWithHierarchicalAlg
 
         private void btn_grp2_apply_Click(object sender, EventArgs e)
         {
+            if (dataGrid.DataSource != null)
+            {
+                if (cmb_grp2_X.SelectedIndex != cmb_grp2_Y.SelectedIndex)
+                {
+                    // do your job 
+                    List<string> Xx = new List<string>();
+                    List<string> Yy = new List<string>();
 
+
+                    for (int i = 0; i < dataGrid.Rows.Count; i++)
+                    {
+                        if (dataGrid.Rows[i].Cells[cmb_grp2_X.SelectedIndex].Value != null) {
+                            Xx.Add(dataGrid.Rows[i].Cells[cmb_grp2_X.SelectedIndex].Value.ToString());
+                            Yy.Add(dataGrid.Rows[i].Cells[cmb_grp2_Y.SelectedIndex].Value.ToString());
+                        }
+
+                    }
+
+                    ApllyAlg_Grp2 apllyAlg_ = new ApllyAlg_Grp2(Xx, Yy, cmb_grp2_X.SelectedItem.ToString(), cmb_grp2_Y.SelectedItem.ToString());
+                    apllyAlg_.ShowDialog(); 
+                }
+                else
+                {
+                    MessageBox.Show("Please, choose different columns for charting!");
+                }
+            }
         }
     }
 }
