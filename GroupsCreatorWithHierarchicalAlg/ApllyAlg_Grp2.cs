@@ -30,7 +30,6 @@ namespace GroupsCreatorWithHierarchicalAlg
 
                 points.Add(point);
             }
-            double[,] dis = DistanceMatrix(points);
             InitializeComponent();
         }
 
@@ -97,6 +96,32 @@ namespace GroupsCreatorWithHierarchicalAlg
 
              
             return distances;
+        }
+
+        private (double, Point, Point, double[,]) findMinimum(double[,] distances, List<Point> points) {
+            double[,] distancesCopy = distances.Clone() as double[,]; 
+            double minValue = double.MaxValue;
+            int minFirstIndex = int.MinValue;
+            int minSecondIndex = int.MinValue;
+
+            for (int i = 0; i < distancesCopy.Length; i++)
+            {
+                for (int j = 0; j < distancesCopy.Length; j++)
+                {
+                    if (i < j) { // abowe diagonal  
+                        double value = distancesCopy[i, j];
+                        if (value <= minValue) {
+                            minValue = value;
+                            minFirstIndex = i;
+                            minSecondIndex = j;
+
+                            distancesCopy[i, j] = double.MaxValue;
+                        }
+                    }
+                }
+            }
+
+            return (minValue, points[minFirstIndex], points[minSecondIndex], distancesCopy);
         }
 
         private class Point {
