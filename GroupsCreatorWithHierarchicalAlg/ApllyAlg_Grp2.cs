@@ -30,6 +30,7 @@ namespace GroupsCreatorWithHierarchicalAlg
 
                 points.Add(point);
             }
+            double[,] dis = DistanceMatrix(points);
             InitializeComponent();
         }
 
@@ -60,9 +61,64 @@ namespace GroupsCreatorWithHierarchicalAlg
             return Math.Sqrt(Math.Pow((p1.X - p2.X), 2) + Math.Pow((p1.Y - p2.Y), 2));
         }
 
+        private void apply_alg_Click(object sender, EventArgs e)
+        {
+            List<Point> A = points.ToList(); // set of X's 
+            List<Cluster> clusters = new List<Cluster>();
+            int n = A.Count;
+            for (int k = 0; k < A.Count; k++)
+            {
+                Cluster cluster = new Cluster();
+                cluster.Add(A[k]);
+                clusters.Add(cluster);
+            }
+            
+            int i = n + 1;
+            while (clusters.Count > 1)
+            {
+                // 
+            }
+        }
+
+
+        private double[,] DistanceMatrix(List<Point> points) {
+            double[,] distances = new double[points.Count, points.Count];
+            // row
+            for (int i = 0; i < points.Count; i++)
+            {
+                // columns 
+                Point from = points[i]; 
+                for (int j = 0; j < points.Count; j++)
+                {                    
+                    Point to = points[j];
+                    distances[i, j] = (j >= i) ? double.MaxValue : SD(from, to);                    
+                }
+            }
+
+             
+            return distances;
+        }
+
         private class Point {
             public double X { get; set; }
             public double Y { get; set; }
+        }
+
+        private class Cluster {
+            private List<Point> C { get; set; }
+
+            public Cluster()
+            {
+                C = new List<Point>(); 
+            }
+
+            public void Add(Point point) {
+                C.Add(point);
+            }
+
+            public bool Remove(Point p) {
+                return C.Remove(p);
+            }
         }
     }
 }
