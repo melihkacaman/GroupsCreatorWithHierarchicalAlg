@@ -15,7 +15,8 @@ namespace GroupsCreatorWithHierarchicalAlg
     {
 
         private List<Point> points;
-        private string xTitle, yTitle; 
+        private string xTitle, yTitle;
+        private double[,] distances; 
         public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title)
         {
             this.xTitle = x_title;
@@ -30,6 +31,8 @@ namespace GroupsCreatorWithHierarchicalAlg
 
                 points.Add(point);
             }
+            distances = DistanceMatrix(points);
+
             InitializeComponent();
         }
 
