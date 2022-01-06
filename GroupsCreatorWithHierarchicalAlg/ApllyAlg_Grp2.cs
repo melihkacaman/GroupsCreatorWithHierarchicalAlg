@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,7 @@ namespace GroupsCreatorWithHierarchicalAlg
                 points.Add(point);
             }
             distances = DistanceMatrix(points);
+            
 
             InitializeComponent();
         }
@@ -76,12 +78,64 @@ namespace GroupsCreatorWithHierarchicalAlg
             }
             
             int i = n + 1;
-            while (clusters.Count > 1)
+            while (clusters.Count > 2)
             {
-                // 
+                double dist = double.MaxValue;
+                Point to = null;
+                Point from = null;
+                
+                (dist, to, from) = findMinimum(distances, points);
+
+                Cluster cluster_to = null;
+                Cluster cluster_from = null; 
+
+                foreach (Cluster item in clusters)
+                {
+                    if (item.belongWhich(to) != null) {
+                        cluster_to = item; 
+                    }
+
+                    if (item.belongWhich(from) != null) {
+                        cluster_from = item; 
+                    }
+
+                    if (cluster_to != null && cluster_from != null) {
+                        break;
+                    }
+                }
+
+                if (cluster_from.Equals(cluster_to)) {
+                    int row_idx = points.IndexOf(to);
+                    int column_idx = points.IndexOf(from);
+                                         
+                    continue;
+                }
+
+                if (cluster_to.size() > cluster_from.size())
+                {
+                    // cluster_to is bigger than cluster_from. 
+                    cluster_from.transferPointsToAnotherCluster(cluster_to);
+                    clusters.Remove(cluster_from);
+                }
+                else {
+                    // cluster_from is bigger than cluster_to. 
+                    cluster_to.transferPointsToAnotherCluster(cluster_from);
+                    clusters.Remove(cluster_to); 
+                }
+
+                string info = to.ToString() + " - " + from.ToString(); 
+                Debug.WriteLine(info);
+                
+                if (info.Equals("point-147 - point-13")) {
+
+                    Debug.WriteLine("here");
+                }
             }
+            Cluster.showInfoClusters(clusters);
         }
 
+
+        
 
         private double[,] DistanceMatrix(List<Point> points) {
             double[,] distances = new double[points.Count, points.Count];
@@ -93,7 +147,7 @@ namespace GroupsCreatorWithHierarchicalAlg
                 for (int j = 0; j < points.Count; j++)
                 {                    
                     Point to = points[j];
-                    distances[i, j] = (j >= i) ? double.MaxValue : SD(from, to);                    
+                    distances[i, j] = (j >= i) ? double.MaxValue : SD(from, to);    // i < j                 
                 }
             }
 
@@ -101,43 +155,64 @@ namespace GroupsCreatorWithHierarchicalAlg
             return distances;
         }
 
-        private (double, Point, Point, double[,]) findMinimum(double[,] distances, List<Point> points) {
-            double[,] distancesCopy = distances.Clone() as double[,]; 
+        private (double, Point, Point) findMinimum(double[,] distances, List<Point> points) {            
             double minValue = double.MaxValue;
             int minFirstIndex = int.MinValue;
             int minSecondIndex = int.MinValue;
 
-            for (int i = 0; i < distancesCopy.Length; i++)
+            for (int i = 0; i < points.Count; i++)
             {
-                for (int j = 0; j < distancesCopy.Length; j++)
+                for (int j = 0; j < points.Count; j++)
                 {
-                    if (i < j) { // abowe diagonal  
-                        double value = distancesCopy[i, j];
+                    if (j >= i) {
+                        continue;
+                    }
+                    else { // abowe diagonal  
+                        double value = distances[i, j];
                         if (value <= minValue) {
                             minValue = value;
                             minFirstIndex = i;
-                            minSecondIndex = j;
-
-                            distancesCopy[i, j] = double.MaxValue;
+                            minSecondIndex = j;                            
                         }
                     }
                 }
             }
 
-            return (minValue, points[minFirstIndex], points[minSecondIndex], distancesCopy);
+            distances[minFirstIndex, minSecondIndex] = double.MaxValue; 
+            return (minValue, points[minFirstIndex], points[minSecondIndex]);
         }
 
         private class Point {
+
+            private int Id { get; set; }
             public double X { get; set; }
             public double Y { get; set; }
+
+            public Point()
+            {
+                Id = id_counter;
+                id_counter++; 
+            }
+
+            private static int id_counter = 0; 
+
+            public override string ToString()
+            {
+                return "point-" + Id;
+            }
         }
 
         private class Cluster {
+            private int Id;
+            private static int Id_counter = 0; 
             private List<Point> C { get; set; }
 
             public Cluster()
             {
-                C = new List<Point>(); 
+                Id = Id_counter;
+                Id_counter++;
+
+                C = new List<Point>();                 
             }
 
             public void Add(Point point) {
@@ -147,6 +222,49 @@ namespace GroupsCreatorWithHierarchicalAlg
             public bool Remove(Point p) {
                 return C.Remove(p);
             }
+
+            public Cluster belongWhich(Point p) {
+                foreach (Point item in C)
+                {
+                    if (p.Equals(item)) {
+                        return this; 
+                    }
+                }
+
+                return null;
+            }
+
+            public int size() {
+                return C.Count; 
+            }
+
+            public void transferPointsToAnotherCluster(Cluster to)
+            {
+                foreach (Point item in C)
+                {
+                    to.Add(item);
+                }
+
+                C = null;
+            }
+
+            public override string ToString()
+            {
+                return "cluster-" + this.Id; 
+            }
+
+            public static void showInfoClusters(List<Cluster> clusters) {
+                foreach (Cluster item in clusters)
+                {
+                    Debug.WriteLine(item.ToString());
+                    foreach (Point point in item.C)
+                    {
+                        Debug.WriteLine("-" + point.ToString());
+                    }
+                }
+            }
         }
+
+        
     }
 }
