@@ -14,13 +14,14 @@ namespace GroupsCreatorWithHierarchicalAlg
 {
     public partial class ApllyAlg_Grp2 : Form
     {
-
+        private decimal nr_cluster; 
         private List<Point> points;
         private string xTitle, yTitle;
         private double[,] distances;
         private Random rnd; 
-        public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title)
+        public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title, decimal nr_cluster)
         {
+            this.nr_cluster = nr_cluster;
             rnd = new Random(); 
             this.xTitle = x_title;
             this.yTitle = y_title;
@@ -79,7 +80,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             }
             
             int i = n + 1;
-            while (clusters.Count > 2)
+            while (clusters.Count > nr_cluster)
             {
                 double dist = double.MaxValue;
                 Point to = null;
@@ -135,7 +136,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             foreach (Cluster cluster in clusters)
             {
                 Series s = new Series(cluster.ToString());
-                Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                Color randomColor = CreateRandomColor();
                 foreach (Point item in cluster.C)
                 {
                     s.Points.AddXY(item.X, item.Y);
@@ -285,6 +286,11 @@ namespace GroupsCreatorWithHierarchicalAlg
             }
         }
 
-        
+        private Color CreateRandomColor()
+        {
+            Color randomColor = Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
+
+            return randomColor;
+        }
     }
 }

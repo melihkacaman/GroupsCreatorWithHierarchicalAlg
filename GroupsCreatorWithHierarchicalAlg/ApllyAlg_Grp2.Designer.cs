@@ -50,16 +50,16 @@ namespace GroupsCreatorWithHierarchicalAlg
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(800, 398);
+            this.chart1.Size = new System.Drawing.Size(994, 604);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
             // apply_alg
             // 
             this.apply_alg.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.apply_alg.Location = new System.Drawing.Point(0, 404);
+            this.apply_alg.Location = new System.Drawing.Point(0, 610);
             this.apply_alg.Name = "apply_alg";
-            this.apply_alg.Size = new System.Drawing.Size(800, 46);
+            this.apply_alg.Size = new System.Drawing.Size(994, 46);
             this.apply_alg.TabIndex = 1;
             this.apply_alg.Text = "Apply Algorithm";
             this.apply_alg.UseVisualStyleBackColor = true;
@@ -69,7 +69,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(994, 656);
             this.Controls.Add(this.apply_alg);
             this.Controls.Add(this.chart1);
             this.Name = "ApllyAlg_Grp2";
