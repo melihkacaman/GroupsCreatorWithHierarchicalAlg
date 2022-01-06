@@ -17,9 +17,11 @@ namespace GroupsCreatorWithHierarchicalAlg
 
         private List<Point> points;
         private string xTitle, yTitle;
-        private double[,] distances; 
+        private double[,] distances;
+        private Random rnd; 
         public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title)
         {
+            rnd = new Random(); 
             this.xTitle = x_title;
             this.yTitle = y_title;
             points = new List<Point>(); 
@@ -39,8 +41,7 @@ namespace GroupsCreatorWithHierarchicalAlg
         }
 
         private void ApllyAlg_Grp2_Load(object sender, EventArgs e)
-        {
-            
+        {           
             Series series = new Series("Unlabeled Data");
             foreach (Point item in points)
             {
@@ -121,21 +122,40 @@ namespace GroupsCreatorWithHierarchicalAlg
                     // cluster_from is bigger than cluster_to. 
                     cluster_to.transferPointsToAnotherCluster(cluster_from);
                     clusters.Remove(cluster_to); 
-                }
-
-                string info = to.ToString() + " - " + from.ToString(); 
-                Debug.WriteLine(info);
-                
-                if (info.Equals("point-147 - point-13")) {
-
-                    Debug.WriteLine("here");
-                }
+                }                
             }
             Cluster.showInfoClusters(clusters);
+
+            showClustersOnChart(clusters);
         }
 
+        private void showClustersOnChart(List<Cluster> clusters) {
+            chart1.Series.Clear(); 
 
-        
+            foreach (Cluster cluster in clusters)
+            {
+                Series s = new Series(cluster.ToString());
+                Color randomColor = Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+                foreach (Point item in cluster.C)
+                {
+                    s.Points.AddXY(item.X, item.Y);
+                }
+
+                s.ChartType = SeriesChartType.Point;
+                s.MarkerStyle = MarkerStyle.Circle;
+                s.Color = randomColor;
+
+                chart1.Series.Add(s);
+            }
+                              
+            chart1.ResetAutoValues();
+            chart1.Titles.Clear();
+            chart1.Titles.Add($"Scatter Plot");
+            chart1.ChartAreas[0].AxisX.Title = "X";
+            chart1.ChartAreas[0].AxisY.Title = "Y";
+            chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+        }
 
         private double[,] DistanceMatrix(List<Point> points) {
             double[,] distances = new double[points.Count, points.Count];
@@ -205,7 +225,7 @@ namespace GroupsCreatorWithHierarchicalAlg
         private class Cluster {
             private int Id;
             private static int Id_counter = 0; 
-            private List<Point> C { get; set; }
+            public List<Point> C { get; set; }
 
             public Cluster()
             {
