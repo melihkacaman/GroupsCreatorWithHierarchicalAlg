@@ -31,6 +31,8 @@ namespace GroupsCreatorWithHierarchicalAlg
         {
             this.panel_right = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nmr_grp2 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.btn_grp2_apply = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cmb_grp2_Y = new System.Windows.Forms.ComboBox();
@@ -39,13 +41,13 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.btn_importFile = new System.Windows.Forms.Button();
             this.panel_left = new System.Windows.Forms.Panel();
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.nmr_grp2 = new System.Windows.Forms.NumericUpDown();
+            this.btn_addAttribute = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel_right.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).BeginInit();
             this.panel_left.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_right
@@ -63,6 +65,8 @@ namespace GroupsCreatorWithHierarchicalAlg
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.btn_addAttribute);
             this.groupBox1.Controls.Add(this.nmr_grp2);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btn_grp2_apply);
@@ -74,15 +78,31 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.groupBox1.Location = new System.Drawing.Point(10, 66);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 231);
+            this.groupBox1.Size = new System.Drawing.Size(189, 584);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Grouping Two Objects";
+            this.groupBox1.Text = "Grouping Objects";
+            // 
+            // nmr_grp2
+            // 
+            this.nmr_grp2.Location = new System.Drawing.Point(128, 487);
+            this.nmr_grp2.Name = "nmr_grp2";
+            this.nmr_grp2.Size = new System.Drawing.Size(43, 22);
+            this.nmr_grp2.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 487);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(117, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Nr. of Groups :";
             // 
             // btn_grp2_apply
             // 
             this.btn_grp2_apply.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_grp2_apply.Location = new System.Drawing.Point(19, 169);
+            this.btn_grp2_apply.Location = new System.Drawing.Point(19, 528);
             this.btn_grp2_apply.Name = "btn_grp2_apply";
             this.btn_grp2_apply.Size = new System.Drawing.Size(152, 39);
             this.btn_grp2_apply.TabIndex = 4;
@@ -158,21 +178,26 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.dataGrid.Size = new System.Drawing.Size(924, 722);
             this.dataGrid.TabIndex = 0;
             // 
-            // label3
+            // btn_addAttribute
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 128);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(117, 17);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Nr. of Groups :";
+            this.btn_addAttribute.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_addAttribute.Location = new System.Drawing.Point(19, 121);
+            this.btn_addAttribute.Name = "btn_addAttribute";
+            this.btn_addAttribute.Size = new System.Drawing.Size(152, 34);
+            this.btn_addAttribute.TabIndex = 7;
+            this.btn_addAttribute.Text = "Add Attribute";
+            this.btn_addAttribute.UseVisualStyleBackColor = false;
+            this.btn_addAttribute.Click += new System.EventHandler(this.btn_addAttribute_Click);
             // 
-            // nmr_grp2
+            // label4
             // 
-            this.nmr_grp2.Location = new System.Drawing.Point(139, 128);
-            this.nmr_grp2.Name = "nmr_grp2";
-            this.nmr_grp2.Size = new System.Drawing.Size(43, 22);
-            this.nmr_grp2.TabIndex = 6;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(19, 158);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(152, 81);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "If you group more than two attribute, yo\'re gonna use the abbility of visualizati" +
+    "on. ";
             // 
             // Form1
             // 
@@ -187,9 +212,9 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.panel_right.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).EndInit();
             this.panel_left.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -208,6 +233,8 @@ namespace GroupsCreatorWithHierarchicalAlg
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown nmr_grp2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btn_addAttribute;
     }
 }
 

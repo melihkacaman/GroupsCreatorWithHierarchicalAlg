@@ -13,6 +13,8 @@ namespace GroupsCreatorWithHierarchicalAlg
 {
     public partial class Form1 : Form
     {
+        int ctrl = 0;
+        List<ComboBox> comboBoxes = new List<ComboBox>(); 
         public Form1()
         {
             InitializeComponent();
@@ -89,6 +91,34 @@ namespace GroupsCreatorWithHierarchicalAlg
                 else {
                     MessageBox.Show("Nr. Of clusters should be greater than 2. ");                
                 }
+            }
+        }
+
+        private void btn_addAttribute_Click(object sender, EventArgs e)
+        {
+            if (dataGrid.DataSource != null) {
+                int i = 0;
+                foreach (Control item in groupBox1.Controls)
+                {
+                    if (item is System.Windows.Forms.ComboBox)
+                    {
+                        i++;
+                    }
+                }
+
+                if (CSVHelper.columnsName.Count > i) {
+                    ComboBox comboBox = new ComboBox();
+                    comboBox.DataSource = CSVHelper.columnsName.ToArray();
+
+                    comboBox.SetBounds(6, 195 + ctrl, 120, 24);
+                        
+                    groupBox1.Controls.Add(comboBox);
+                    
+                    ctrl += 30;
+
+                    comboBoxes.Add(comboBox); 
+                }
+
             }
         }
     }

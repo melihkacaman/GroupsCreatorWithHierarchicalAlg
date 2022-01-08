@@ -19,7 +19,7 @@ namespace GroupsCreatorWithHierarchicalAlg
         private string xTitle, yTitle;
         private double[,] distances;
         private Random rnd; 
-        public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title, decimal nr_cluster)
+        public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title, decimal nr_cluster) 
         {
             this.nr_cluster = nr_cluster;
             rnd = new Random(); 
