@@ -52,8 +52,12 @@ namespace GroupsCreatorWithHierarchicalAlg
 
         private void resetAllComponents() {
             dataGrid.DataSource = null;
-            cmb_grp2_X.DataSource = null;
-            cmb_grp2_Y.DataSource = null;         
+            foreach (var item in groupBox1.Controls)
+            {
+                if (item is ComboBox) {
+                    ((ComboBox)item).DataSource = null;
+                }
+            }         
         }
 
         private void btn_grp2_apply_Click(object sender, EventArgs e)
@@ -62,9 +66,11 @@ namespace GroupsCreatorWithHierarchicalAlg
             {
                 if (nmr_grp2.Value > 1)
                 {
-                    if (cmb_grp2_X.SelectedIndex != cmb_grp2_Y.SelectedIndex)
+                    if (checkItemsCombo())
                     {
                         // do your job 
+                        List<List<string>> data = new List<List<string>>(); 
+                        
                         List<string> Xx = new List<string>();
                         List<string> Yy = new List<string>();
 
@@ -79,8 +85,35 @@ namespace GroupsCreatorWithHierarchicalAlg
 
                         }
 
-                        ApllyAlg_Grp2 apllyAlg_ = new 
-                            ApllyAlg_Grp2(Xx, Yy, cmb_grp2_X.SelectedItem.ToString(), cmb_grp2_Y.SelectedItem.ToString(), nmr_grp2.Value);
+                        data.Add(Xx);
+                        data.Add(Yy);
+
+                        if (comboBoxes.Count > 0) {
+                            foreach (ComboBox item in comboBoxes)
+                            {
+                                List<string> atr = new List<string>();
+
+                                for (int i = 0; i < dataGrid.Rows.Count; i++)
+                                {
+                                    if (dataGrid.Rows[i].Cells[cmb_grp2_X.SelectedIndex].Value != null)
+                                    {
+                                        atr.Add(dataGrid.Rows[i].Cells[item.SelectedIndex].Value.ToString());                                        
+                                    }                                    
+                                }
+
+                                data.Add(atr);
+                            }
+                        }
+                        ApllyAlg_Grp2 apllyAlg_ = null; 
+                        if (comboBoxes.Count == 0)
+                        {
+                            apllyAlg_ = new
+                                ApllyAlg_Grp2(Xx, Yy, cmb_grp2_X.SelectedItem.ToString(), cmb_grp2_Y.SelectedItem.ToString(), nmr_grp2.Value);                           
+                        }
+                        else {
+                             apllyAlg_ = new ApllyAlg_Grp2(data, nmr_grp2.Value);                            
+                        }
+                        
                         apllyAlg_.ShowDialog();
                     }
                     else
@@ -93,6 +126,18 @@ namespace GroupsCreatorWithHierarchicalAlg
                 }
             }
         }
+
+        private bool checkItemsCombo() {
+            List<int> cbs = new List<int>(); 
+            foreach (var item in groupBox1.Controls)
+            {
+                if (item is ComboBox)
+                    cbs.Add(((ComboBox)item).SelectedIndex); 
+            }
+
+            return cbs.Distinct().ToList().Count == cbs.Count;
+        }
+
 
         private void btn_addAttribute_Click(object sender, EventArgs e)
         {
