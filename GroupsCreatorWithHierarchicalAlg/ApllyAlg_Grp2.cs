@@ -59,9 +59,7 @@ namespace GroupsCreatorWithHierarchicalAlg
 
             InitializeComponent();
         }
-
         
-
         private void ApllyAlg_Grp2_Load(object sender, EventArgs e)
         {
             if (md_control == false) {
@@ -98,7 +96,12 @@ namespace GroupsCreatorWithHierarchicalAlg
             }
 
             return Math.Sqrt(sum);
-        }        
+        }
+
+        private double DWW() {
+            
+            return 0.0; 
+        }
 
         private void apply_alg_Click(object sender, EventArgs e)
         {
@@ -227,7 +230,6 @@ namespace GroupsCreatorWithHierarchicalAlg
             return distances;
         }
 
-
         private (double, int, int) findMinimum(double[,] distances) {            
             double minValue = double.MaxValue;
             int minFirstIndex = int.MinValue;
@@ -254,11 +256,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             distances[minFirstIndex, minSecondIndex] = double.MaxValue; 
             return (minValue, minFirstIndex, minSecondIndex);
         }
-
-         
-
-         
-
+              
         private Color CreateRandomColor()
         {
             Color randomColor = Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
