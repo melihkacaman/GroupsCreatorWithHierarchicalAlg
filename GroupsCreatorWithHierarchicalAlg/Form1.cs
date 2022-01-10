@@ -108,10 +108,12 @@ namespace GroupsCreatorWithHierarchicalAlg
                         if (comboBoxes.Count == 0)
                         {
                             apllyAlg_ = new
-                                ApllyAlg_Grp2(Xx, Yy, cmb_grp2_X.SelectedItem.ToString(), cmb_grp2_Y.SelectedItem.ToString(), nmr_grp2.Value);                           
+                                ApllyAlg_Grp2(Xx, Yy, cmb_grp2_X.SelectedItem.ToString(), 
+                                cmb_grp2_Y.SelectedItem.ToString(), nmr_grp2.Value, 
+                                radio_weightDistance.Checked == true ? false : true);                           
                         }
                         else {
-                             apllyAlg_ = new ApllyAlg_Grp2(data, nmr_grp2.Value);                            
+                             apllyAlg_ = new ApllyAlg_Grp2(data, nmr_grp2.Value, radio_weightDistance.Checked == true ? false : true);                            
                         }
                         
                         apllyAlg_.ShowDialog();

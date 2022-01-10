@@ -19,13 +19,16 @@ namespace GroupsCreatorWithHierarchicalAlg
         private string xTitle, yTitle;
         private double[,] distances;
         private Random rnd = new Random();
-        private bool md_control = false; 
+        private bool md_control = false;
+        private bool shortestDistance;
+        private double[] weights = null; 
 
-        public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title, decimal nr_cluster) 
+        public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title, decimal nr_cluster, bool shortestDistance = true) 
         {
             this.nr_cluster = nr_cluster;           
             this.xTitle = x_title;
             this.yTitle = y_title;
+            this.shortestDistance = shortestDistance; 
             for (int i = 0; i < x1.Count; i++)
             {
                 Point point = new Point(2);
@@ -34,16 +37,16 @@ namespace GroupsCreatorWithHierarchicalAlg
                                   
                 points.Add(point);
             }
-            distances = DistanceMatrix(points);
-            
 
+            initialize();
             InitializeComponent();
         }
 
-        public ApllyAlg_Grp2(List<List<string>> data, decimal nr_cluster)
+        public ApllyAlg_Grp2(List<List<string>> data, decimal nr_cluster, bool shortestDistance = true)
         {
             this.nr_cluster = nr_cluster;
             this.md_control = true;
+            this.shortestDistance = shortestDistance;
             for (int i = 0; i < data[0].Count; i++)
             {
                 Point point = new Point(data.Count); 
@@ -55,11 +58,35 @@ namespace GroupsCreatorWithHierarchicalAlg
                 points.Add(point);
             }
 
-            distances = DistanceMatrix(points);
-
+            initialize();
             InitializeComponent();
         }
-        
+
+        private void initialize() {
+            distances = DistanceMatrix(points);
+            if (shortestDistance != true) {
+                Point sample = points.First();
+                this.weights = new double[sample.getDimension()];
+                double[] ds = new double[sample.getDimension()];
+                for (int i = 0; i < this.weights.Length; i++)
+                {
+                    double[] attribute = new double[points.Count];
+                    for (int j = 0; j < points.Count; j++)
+                    {
+                        attribute[j] = points[j].giveValue(i); 
+                    }
+
+                    ds[i] = attribute.Max() - attribute.Min(); 
+                }
+
+                for (int i = 0; i < weights.Length; i++)
+                {
+                    weights[i] = ds[i] / ds.Max(); 
+                }
+            }
+        }
+
+
         private void ApllyAlg_Grp2_Load(object sender, EventArgs e)
         {
             if (md_control == false) {
@@ -98,9 +125,14 @@ namespace GroupsCreatorWithHierarchicalAlg
             return Math.Sqrt(sum);
         }
 
-        private double DWW() {
+        private double DWW(Point p1, Point p2) {
+            double distance = 0.0; 
+            for (int i = 0; i < p1.getDimension(); i++)
+            {
+                distance += weights[i] * Math.Pow(p1.giveValue(i) - p2.giveValue(i),2);
+            }
             
-            return 0.0; 
+            return Math.Sqrt(distance); 
         }
 
         private void apply_alg_Click(object sender, EventArgs e)

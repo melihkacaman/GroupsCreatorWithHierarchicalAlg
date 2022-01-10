@@ -43,6 +43,8 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.btn_importFile = new System.Windows.Forms.Button();
             this.panel_left = new System.Windows.Forms.Panel();
             this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.radio_shortestdistance = new System.Windows.Forms.RadioButton();
+            this.radio_weightDistance = new System.Windows.Forms.RadioButton();
             this.panel_right.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).BeginInit();
@@ -56,7 +58,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.panel_right.Controls.Add(this.groupBox1);
             this.panel_right.Controls.Add(this.btn_importFile);
             this.panel_right.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_right.Location = new System.Drawing.Point(924, 0);
+            this.panel_right.Location = new System.Drawing.Point(935, 0);
             this.panel_right.Name = "panel_right";
             this.panel_right.Padding = new System.Windows.Forms.Padding(10);
             this.panel_right.Size = new System.Drawing.Size(209, 722);
@@ -65,6 +67,8 @@ namespace GroupsCreatorWithHierarchicalAlg
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.Controls.Add(this.radio_weightDistance);
+            this.groupBox1.Controls.Add(this.radio_shortestdistance);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btn_addAttribute);
             this.groupBox1.Controls.Add(this.nmr_grp2);
@@ -78,7 +82,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.groupBox1.Location = new System.Drawing.Point(10, 66);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(20);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(189, 584);
+            this.groupBox1.Size = new System.Drawing.Size(189, 644);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grouping Objects";
@@ -106,7 +110,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             // 
             // nmr_grp2
             // 
-            this.nmr_grp2.Location = new System.Drawing.Point(128, 487);
+            this.nmr_grp2.Location = new System.Drawing.Point(128, 508);
             this.nmr_grp2.Name = "nmr_grp2";
             this.nmr_grp2.Size = new System.Drawing.Size(43, 22);
             this.nmr_grp2.TabIndex = 6;
@@ -114,7 +118,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 487);
+            this.label3.Location = new System.Drawing.Point(6, 510);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(117, 17);
             this.label3.TabIndex = 5;
@@ -123,9 +127,9 @@ namespace GroupsCreatorWithHierarchicalAlg
             // btn_grp2_apply
             // 
             this.btn_grp2_apply.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_grp2_apply.Location = new System.Drawing.Point(19, 528);
+            this.btn_grp2_apply.Location = new System.Drawing.Point(9, 590);
             this.btn_grp2_apply.Name = "btn_grp2_apply";
-            this.btn_grp2_apply.Size = new System.Drawing.Size(152, 39);
+            this.btn_grp2_apply.Size = new System.Drawing.Size(174, 39);
             this.btn_grp2_apply.TabIndex = 4;
             this.btn_grp2_apply.Text = "Apply ";
             this.btn_grp2_apply.UseVisualStyleBackColor = false;
@@ -185,7 +189,7 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.panel_left.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_left.Location = new System.Drawing.Point(0, 0);
             this.panel_left.Name = "panel_left";
-            this.panel_left.Size = new System.Drawing.Size(924, 722);
+            this.panel_left.Size = new System.Drawing.Size(935, 722);
             this.panel_left.TabIndex = 1;
             // 
             // dataGrid
@@ -196,14 +200,37 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.dataGrid.Name = "dataGrid";
             this.dataGrid.RowHeadersWidth = 51;
             this.dataGrid.RowTemplate.Height = 24;
-            this.dataGrid.Size = new System.Drawing.Size(924, 722);
+            this.dataGrid.Size = new System.Drawing.Size(935, 722);
             this.dataGrid.TabIndex = 0;
+            // 
+            // radio_shortestdistance
+            // 
+            this.radio_shortestdistance.AutoSize = true;
+            this.radio_shortestdistance.Checked = true;
+            this.radio_shortestdistance.Location = new System.Drawing.Point(7, 536);
+            this.radio_shortestdistance.Name = "radio_shortestdistance";
+            this.radio_shortestdistance.Size = new System.Drawing.Size(158, 21);
+            this.radio_shortestdistance.TabIndex = 9;
+            this.radio_shortestdistance.TabStop = true;
+            this.radio_shortestdistance.Text = "Shortest Distance";
+            this.radio_shortestdistance.UseVisualStyleBackColor = true;
+            // 
+            // radio_weightDistance
+            // 
+            this.radio_weightDistance.AutoSize = true;
+            this.radio_weightDistance.Location = new System.Drawing.Point(7, 563);
+            this.radio_weightDistance.Name = "radio_weightDistance";
+            this.radio_weightDistance.Size = new System.Drawing.Size(184, 21);
+            this.radio_weightDistance.TabIndex = 10;
+            this.radio_weightDistance.TabStop = true;
+            this.radio_weightDistance.Text = "Distance With Weigth";
+            this.radio_weightDistance.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1133, 722);
+            this.ClientSize = new System.Drawing.Size(1144, 722);
             this.Controls.Add(this.panel_left);
             this.Controls.Add(this.panel_right);
             this.Name = "Form1";
@@ -235,6 +262,8 @@ namespace GroupsCreatorWithHierarchicalAlg
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_addAttribute;
+        private System.Windows.Forms.RadioButton radio_weightDistance;
+        private System.Windows.Forms.RadioButton radio_shortestdistance;
     }
 }
 
