@@ -14,28 +14,24 @@ namespace GroupsCreatorWithHierarchicalAlg
 {
     public partial class ApllyAlg_Grp2 : Form
     {
-        private decimal nr_cluster; 
-        private List<Point> points;
+        private decimal nr_cluster;
+        private List<Point> points = new List<Point>(); 
         private string xTitle, yTitle;
         private double[,] distances;
         private Random rnd = new Random();
-
-
-        private List<List<double>> md_points; 
+        private bool md_control = false; 
 
         public ApllyAlg_Grp2(List<string> x1, List<string> x2, string x_title, string y_title, decimal nr_cluster) 
         {
             this.nr_cluster = nr_cluster;           
             this.xTitle = x_title;
             this.yTitle = y_title;
-            points = new List<Point>(); 
             for (int i = 0; i < x1.Count; i++)
             {
-                Point point = new Point() { 
-                    X = Convert.ToDouble(x1[i].Trim()), 
-                    Y = Convert.ToDouble(x2[i].Trim())
-                };
-
+                Point point = new Point(2);
+                point.add(Convert.ToDouble(x1[i].Trim()));
+                point.add(Convert.ToDouble(x2[i].Trim()));
+                                  
                 points.Add(point);
             }
             distances = DistanceMatrix(points);
@@ -44,66 +40,65 @@ namespace GroupsCreatorWithHierarchicalAlg
             InitializeComponent();
         }
 
-        public ApllyAlg_Grp2(List<List<string>> data, decimal value)
+        public ApllyAlg_Grp2(List<List<string>> data, decimal nr_cluster)
         {
-            this.md_points = new List<List<double>>(); 
-            this.nr_cluster = value;
-
-            for (int i = 0; i < data.Count; i++)
+            this.nr_cluster = nr_cluster;
+            this.md_control = true;
+            for (int i = 0; i < data[0].Count; i++)
             {
-                List<double> attrList = new List<double>();
-                foreach (string item in data[i])
+                Point point = new Point(data.Count); 
+                for (int j = 0; j < data.Count; j++)
                 {
-                    attrList.Add(Convert.ToDouble(item.Trim()));
+                    point.add(Convert.ToDouble(data[j][i])); 
                 }
 
-                md_points.Add(attrList);
+                points.Add(point);
             }
 
-            distances = DistanceMatrix(md_points);
+            distances = DistanceMatrix(points);
+
+            InitializeComponent();
         }
 
         
 
         private void ApllyAlg_Grp2_Load(object sender, EventArgs e)
-        {           
-            Series series = new Series("Unlabeled Data");
-            foreach (Point item in points)
-            {
-                series.Points.AddXY(item.X, item.Y);
-            }
-            series.ChartType = SeriesChartType.Point;
-            series.MarkerStyle = MarkerStyle.Circle;
-            
+        {
+            if (md_control == false) {
+                Series series = new Series("Unlabeled Data");
+                foreach (Point item in points)
+                {
+                    series.Points.AddXY(item.giveValue(0), item.giveValue(1));
+                }
+                series.ChartType = SeriesChartType.Point;
+                series.MarkerStyle = MarkerStyle.Circle;
 
-            chart1.Series.Clear();
-            chart1.Series.Add(series);
-            chart1.ResetAutoValues();
-            chart1.Titles.Clear();
-            chart1.Titles.Add($"Scatter Plot");
-            chart1.ChartAreas[0].AxisX.Title = "X";
-            chart1.ChartAreas[0].AxisY.Title = "Y";
-            chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
-            chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+
+                chart1.Series.Clear();
+                chart1.Series.Add(series);
+                chart1.ResetAutoValues();
+                chart1.Titles.Clear();
+                chart1.Titles.Add($"Scatter Plot");
+                chart1.ChartAreas[0].AxisX.Title = "X";
+                chart1.ChartAreas[0].AxisY.Title = "Y";
+                chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+
+            }
         }
 
         private double SD(Point p1, Point p2) {
-            return Math.Sqrt(Math.Pow((p1.X - p2.X), 2) + Math.Pow((p1.Y - p2.Y), 2));
-        }
-
-        private double SD(List<double> p1, List<double> p2)
-        {
-            double sum = 0.0; 
-            for (int i = 0; i < p1.Count; i++)
+            double sum = 0.0;
+            for (int i = 0; i < p1.getDimension(); i++)
             {
-                double ax1 = p1[i];
-                double ax2 = p2[i];
+                double ax1 = p1.giveValue(i);
+                double ax2 = p2.giveValue(i);
 
                 sum += Math.Pow(ax1 - ax2, 2);
             }
 
             return Math.Sqrt(sum);
-        }
+        }        
 
         private void apply_alg_Click(object sender, EventArgs e)
         {
@@ -114,12 +109,12 @@ namespace GroupsCreatorWithHierarchicalAlg
             {
                 Cluster cluster = new Cluster();
                 cluster.Add(A[k]);
-                clusters.Add(cluster);
+                clusters.Add(cluster);               
             }
             
             
             while (clusters.Count > nr_cluster)
-            {
+            {                
                 double dist = double.MaxValue;
                 int to_index =-1 ;
                 int from_index = -1;
@@ -163,9 +158,27 @@ namespace GroupsCreatorWithHierarchicalAlg
                     clusters.Remove(cluster_to); 
                 }                
             }
-            Cluster.showInfoClusters(clusters);
+            
 
-            showClustersOnChart(clusters);
+            if (md_control == false)
+                showClustersOnChart(clusters);
+            else {
+                Series s = new Series();
+                foreach (Cluster item in clusters)
+                {
+                    s.Points.AddXY(item.ToString(), item.size().ToString()); 
+                }
+                s.ChartType = SeriesChartType.Bar;
+                chart1.Series.Clear();
+                chart1.Series.Add(s);
+                chart1.ResetAutoValues();
+                //chart1.Titles.Clear();
+                //chart1.Titles.Add($"Scatter Plot");
+                //chart1.ChartAreas[0].AxisX.Title = "X";
+                //chart1.ChartAreas[0].AxisY.Title = "Y";
+                //chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                //chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
+            }
         }
 
         private void showClustersOnChart(List<Cluster> clusters) {
@@ -177,7 +190,7 @@ namespace GroupsCreatorWithHierarchicalAlg
                 Color randomColor = CreateRandomColor();
                 foreach (Point item in cluster.C)
                 {
-                    s.Points.AddXY(item.X, item.Y);
+                    s.Points.AddXY(item.giveValue(0), item.giveValue(1));
                 }
 
                 s.ChartType = SeriesChartType.Point;
@@ -215,35 +228,6 @@ namespace GroupsCreatorWithHierarchicalAlg
         }
 
 
-        private double[,] DistanceMatrix(List<List<double>> dts)
-        {
-            double[,] distances = new double[dts[0].Count, dts[0].Count];
-            // row
-            for (int i = 0; i < dts[0].Count; i++)
-            {
-                // columns 
-                List<double> from = new List<double>(); //points[i];
-                for (int k = 0; k < dts.Count; k++)
-                {
-                    from.Add(dts[k][i]);
-                }
-
-
-                for (int j = 0; j < dts[0].Count; j++)
-                {
-                    List<double> to = new List<double>(); //points[i];
-                    for (int k = 0; k < dts.Count; k++)
-                    {
-                        to.Add(dts[k][j]);
-                    }
-                    distances[i, j] = (j >= i) ? double.MaxValue : SD(from, to);    // i < j                 
-                }
-            }
-
-
-            return distances;
-        }
-
         private (double, int, int) findMinimum(double[,] distances) {            
             double minValue = double.MaxValue;
             int minFirstIndex = int.MinValue;
@@ -278,7 +262,6 @@ namespace GroupsCreatorWithHierarchicalAlg
         private Color CreateRandomColor()
         {
             Color randomColor = Color.FromArgb(rnd.Next(255), rnd.Next(255), rnd.Next(255));
-
             return randomColor;
         }
     }

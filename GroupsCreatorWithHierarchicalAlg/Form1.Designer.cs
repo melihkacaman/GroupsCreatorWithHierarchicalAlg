@@ -31,6 +31,8 @@ namespace GroupsCreatorWithHierarchicalAlg
         {
             this.panel_right = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btn_addAttribute = new System.Windows.Forms.Button();
             this.nmr_grp2 = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_grp2_apply = new System.Windows.Forms.Button();
@@ -41,8 +43,6 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.btn_importFile = new System.Windows.Forms.Button();
             this.panel_left = new System.Windows.Forms.Panel();
             this.dataGrid = new System.Windows.Forms.DataGridView();
-            this.btn_addAttribute = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.panel_right.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmr_grp2)).BeginInit();
@@ -82,6 +82,27 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grouping Objects";
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(19, 158);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(152, 81);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "If you group more than two attribute, yo\'re gonna use the abbility of visualizati" +
+    "on. ";
+            // 
+            // btn_addAttribute
+            // 
+            this.btn_addAttribute.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btn_addAttribute.Location = new System.Drawing.Point(19, 121);
+            this.btn_addAttribute.Name = "btn_addAttribute";
+            this.btn_addAttribute.Size = new System.Drawing.Size(152, 34);
+            this.btn_addAttribute.TabIndex = 7;
+            this.btn_addAttribute.Text = "Add Attribute";
+            this.btn_addAttribute.UseVisualStyleBackColor = false;
+            this.btn_addAttribute.Click += new System.EventHandler(this.btn_addAttribute_Click);
             // 
             // nmr_grp2
             // 
@@ -177,27 +198,6 @@ namespace GroupsCreatorWithHierarchicalAlg
             this.dataGrid.RowTemplate.Height = 24;
             this.dataGrid.Size = new System.Drawing.Size(924, 722);
             this.dataGrid.TabIndex = 0;
-            // 
-            // btn_addAttribute
-            // 
-            this.btn_addAttribute.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btn_addAttribute.Location = new System.Drawing.Point(19, 121);
-            this.btn_addAttribute.Name = "btn_addAttribute";
-            this.btn_addAttribute.Size = new System.Drawing.Size(152, 34);
-            this.btn_addAttribute.TabIndex = 7;
-            this.btn_addAttribute.Text = "Add Attribute";
-            this.btn_addAttribute.UseVisualStyleBackColor = false;
-            this.btn_addAttribute.Click += new System.EventHandler(this.btn_addAttribute_Click);
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(19, 158);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(152, 81);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "If you group more than two attribute, yo\'re gonna use the abbility of visualizati" +
-    "on. ";
             // 
             // Form1
             // 

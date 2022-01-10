@@ -64,16 +64,20 @@ namespace GroupsCreatorWithHierarchicalAlg
             return "cluster-" + this.Id;
         }
 
-        public static void showInfoClusters(List<Cluster> clusters)
+        public static List<string> showInfoClusters(List<Cluster> clusters)
         {
+            List<string> result = new List<string>();             
             foreach (Cluster item in clusters)
-            {
-                Debug.WriteLine(item.ToString());
+            {                
+                string res = item.ToString() + "\n";
                 foreach (Point point in item.C)
                 {
-                    Debug.WriteLine("-" + point.ToString());
+                    res += "-" + point.ToString() + "\n";
                 }
+                result.Add(res);
             }
+
+            return result;
         }
     }
 }
